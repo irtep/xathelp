@@ -1,4 +1,4 @@
-import { addNewEntry } from './functions.js';
+import { addNewEntry, copyToClipboardMsg } from './functions.js';
 const allDivs = document.getElementById('container');
 const passInput = document.getElementById('passInput');
 const passAsker = document.getElementById('passAsker');
@@ -11,12 +11,13 @@ let allData = null;
 
 // this shows data of the clicked information
 function showData(clickedElement) {
-  console.log('clicked: ', clickedElement.target.id);
   // find the data:
   allData.forEach( (dataEntry, idx) => {
     if (dataEntry._id === clickedElement.target.id) {
       // add data
-      downRight.innerHTML = allData[idx].response; 
+      downRight.innerHTML = allData[idx].response;
+      // copy to clipboard, disabled as doesnt work yet... gotta fix
+      //copyToClipboardMsg(allData[idx].response, "msg");
       window.scrollTo(0, 0);
     }
   });
@@ -47,7 +48,6 @@ function checkPass(pass) {
           allData = records;
           allData.forEach( data => {
             //data.question
-            console.log('data: ', data);
             // add question to page
             downLeft.innerHTML += `<p id= ${data._id} class= "clickable">${data.question}</p>`;
             // add event listener to this

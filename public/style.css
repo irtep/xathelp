@@ -49,8 +49,10 @@ body {
 .otsikko {
   font-weight: bold;
 }
-input[type=button] {
+input[type=button] { 
+  font-family: 'Audiowide', cursive;
   padding: 10px;
+  margin: 10px;
   border: solid 4px black;
   border-radius: 5px;
   background: green;
