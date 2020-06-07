@@ -16,8 +16,8 @@ function showData(clickedElement) {
     if (dataEntry._id === clickedElement.target.id) {
       // add data
       downRight.innerHTML = allData[idx].response;
-      // copy to clipboard, disabled as doesnt work yet... gotta fix
-      //copyToClipboardMsg(allData[idx].response, "msg");
+      // copy to clipboard
+      copyToClipboardMsg(downRight, "msg");
       window.scrollTo(0, 0);
     }
   });

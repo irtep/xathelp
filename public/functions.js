@@ -33,7 +33,7 @@ export function addNewEntry() {
 	    if (!succeed) {
 	      msg = "Copy not supported or blocked.  Press Ctrl+c to copy."
 	    } else {
-	      msg = "Kopioitu leikepöydälle. CONTROL+V voit liimata. Huom! kaikki vastaukset eivät käy suoraan vastauksiksi asiakkaille!"
+	      msg = "Kopioitu leikepöydälle. CONTROL+V voit liimata chattiin. Huom! kaikki vastaukset eivät käy suoraan vastauksiksi asiakkaille, joten lue ja muokkaa niitä aina!"
 	    }
 	    if (typeof msgElem === "string") {
 	      msgElem = document.getElementById('infoScreen');
@@ -41,7 +41,7 @@ export function addNewEntry() {
 	  msgElem.innerHTML = msg;
 	  setTimeout(() => {
 	    msgElem.innerHTML = "";
-	  }, 6000);
+	  }, 9000);
 	}  // end of copy message
 	function copyToClipboard(elem) {  // copy mechanism
 		// create hidden text element, if it doesn't already exist
