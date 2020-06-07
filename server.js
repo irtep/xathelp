@@ -12,12 +12,6 @@ mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 const Schema = mongoose.Schema;
-
-const oikotieSchema = new Schema( {
-  list: {
-    type: Object    
-  } 
-});
 const entrySchema = new Schema( {
   question: {
     type: String    
@@ -26,7 +20,6 @@ const entrySchema = new Schema( {
     type: String
   }
 });
-const oikotieModel = mongoose.model('oikotieModel', oikotieSchema ); 
 const entryModel = mongoose.model('ot2model', entrySchema ); 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
@@ -38,7 +31,6 @@ app.get("/", (request, response) => {
 // POST handlers
 // show all entries
 app.post('/showAll', (request, response) => {
-  //console.log('got show ', request.body.MSG);
   const requestPass = request.body.MSG;
   const newDbConnect = new Promise( (resolve, reject) => {    
     entryModel.find((err, results) => {      
@@ -50,20 +42,15 @@ app.post('/showAll', (request, response) => {
   newDbConnect.then( (results) => {
     let responding = null;
     if (pasw === requestPass) {
-      //console.log('set to send: ', results);
       responding = JSON.stringify(results); 
     } else {
       responding = 'wrong password';
     }
     const sending = responding;
-    //console.log("responding with data ");
-    //console.log('sending: ', responding);
     response.writeHead(200, {'Content-Type': 'text/plain'});
     response.end(sending); 
   });
-  //const received = request.body.MSG;
-  //let responding = null;
-  //console.log('received: ', received);
+
 });
 // add new entry:
 app.post('/addNew', (request, response) => {
