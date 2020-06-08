@@ -13,7 +13,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-color: DarkTurquoise;
-  background-image: linear-gradient(black, navy, purple);
+  background-image: linear-gradient(black, navy, blue);
 }
 #container {
   /*
