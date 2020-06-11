@@ -1,3 +1,4 @@
+const process = require ('./config.js');
 const express = require("express");
 const bodyParser = require('body-parser');
 const app = express();
@@ -6,7 +7,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 // database access:
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
 const mongoDB = process.env.SECRET1; // admin
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
@@ -14,13 +15,13 @@ const db = mongoose.connection;
 const Schema = mongoose.Schema;
 const entrySchema = new Schema( {
   question: {
-    type: String    
+    type: String
   },
   response: {
     type: String
   }
 });
-const entryModel = mongoose.model('ot2model', entrySchema ); 
+const entryModel = mongoose.model('ot2model', entrySchema );
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // GET handler
@@ -32,23 +33,23 @@ app.get("/", (request, response) => {
 // show all entries
 app.post('/showAll', (request, response) => {
   const requestPass = request.body.MSG;
-  const newDbConnect = new Promise( (resolve, reject) => {    
-    entryModel.find((err, results) => {      
+  const newDbConnect = new Promise( (resolve, reject) => {
+    entryModel.find((err, results) => {
       if (results !== null) {
         resolve(results);
-      } 
-    });  
+      }
+    });
   });
   newDbConnect.then( (results) => {
     let responding = null;
     if (pasw === requestPass) {
-      responding = JSON.stringify(results); 
+      responding = JSON.stringify(results);
     } else {
       responding = 'wrong password';
     }
     const sending = responding;
     response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.end(sending); 
+    response.end(sending);
   });
 
 });
@@ -69,7 +70,7 @@ app.post('/addNew', (request, response) => {
   console.log("responding with data ");
   response.writeHead(200, {'Content-Type': 'text/plain'});
   response.end(sending);
- 
+
 });
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
