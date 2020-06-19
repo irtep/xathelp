@@ -1,3 +1,4 @@
+"use strict";
 const allDivs = document.getElementById('container');
 const passInput = document.getElementById('passInput');
 const passAsker = document.getElementById('passAsker');

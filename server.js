@@ -1,3 +1,4 @@
+"use strict";
 const process = require ('./config.js');
 const express = require("express");
 const bodyParser = require('body-parser');
@@ -76,9 +77,6 @@ app.post('/addNew', (request, response) => {
   response.end(sending);
 
 });
-app.post('/updateOld', (request, response) => {
-
-});
-const listener = app.listen(process.env.PORT, () => {
+const listener = app.listen(5599, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
