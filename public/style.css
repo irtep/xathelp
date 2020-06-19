@@ -7,13 +7,13 @@
   padding: 10px;
 }
 body {
-  color: black;
+  color: yellow;
   text-shadow: 0 0 4px #FFF
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-color: silver;
-  background-image: linear-gradient(cyan, silver, silver, silver, white, white);
+  background-color: DarkTurquoise;
+  background-image: linear-gradient(navy, blue, dodgerBlue);
 }
 #container {
   /*
@@ -80,6 +80,7 @@ input[type=button]:hover {
 #passAsker {
   font-family: 'Metal Mania', cursive;
   font-size: 200%;
-  color: black;
+  color: gold;
   margin: 10px;
 }
+
