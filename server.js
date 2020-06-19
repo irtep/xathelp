@@ -14,25 +14,21 @@ mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 const Schema = mongoose.Schema;
-
 const entrySchema = new Schema( {
-  site: {
+  question: {
     type: String
   },
-  psw: {
+  response: {
     type: String
   }
 });
-
-//const entryModel = mongoose.model('ot2model', entrySchema );
-const entryModel = mongoose.model('pswxmodel', entrySchema );
-
+const entryModel = mongoose.model('ot2model', entrySchema );
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // GET handler
 app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
-  console.log('get received');
+  console.log('got get');
 });
 // POST handlers
 // show all entries
@@ -61,11 +57,11 @@ app.post('/showAll', (request, response) => {
 // add new entry:
 app.post('/addNew', (request, response) => {
   const newEntryComing = JSON.parse(request.body.MSG);
-  console.log('new entry: ', newEntryComing);
+  //console.log('new entry: ', newEntryComing);
   const theQuery = { name: 'ot2'};
   const newEntry = entryModel({
-    site: newEntryComing.site,
-    psw: newEntryComing.psw
+    question: newEntryComing.question,
+    response: newEntryComing.response
   });
   newEntry.save( (err, entry1) => {
     if (err) return console.error(err);
