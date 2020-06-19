@@ -1,3 +1,4 @@
+"use strict";
 import { addNewEntry, copyToClipboardMsg } from './functions.js';
 const allDivs = document.getElementById('container');
 const passInput = document.getElementById('passInput');
@@ -30,9 +31,9 @@ function checkPass(pass) {
     const http = new XMLHttpRequest();
     const url = '/showAll';
     let params = 'MSG=' + passu;
-    
+
     http.open('POST', url, true);
-    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); 
+    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     http.onreadystatechange = () => {
       if (http.readyState == 4 && http.status == 200) {
         const records = JSON.parse(http.responseText);
@@ -63,9 +64,9 @@ function checkPass(pass) {
   } else {
     infoScreen.innerHTML = 'wrong password!';
   }
-  
+
 }
-window.onload = (()=> { 
+window.onload = (()=> {
   const allDivs = document.getElementById('container');
   allDivs.classList.add('invis');
 });

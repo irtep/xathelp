@@ -1,3 +1,4 @@
+"use strict";
 const allDivs = document.getElementById('container');
 const passInput = document.getElementById('passInput');
 const passAsker = document.getElementById('passAsker');
@@ -12,7 +13,7 @@ export function addNewEntry() {
     const http = new XMLHttpRequest();
     const url = '/addNew';
     let params = 'MSG=' + pack;
-    
+
     http.open('POST', url, true);
     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     http.onreadystatechange = () => {
@@ -75,7 +76,7 @@ export function addNewEntry() {
 	    var succeed;
 	    try {
 	    	succeed = document.execCommand("copy");
-	    } 
+	    }
 	    catch(e) {
 	      succeed = false;
 	    }
@@ -86,7 +87,7 @@ export function addNewEntry() {
 	    if (isInput) {
 	      // restore prior selectio
 	      elem.setSelectionRange(origSelectionStart, origSelectionEnd);
-	    } 
+	    }
 	    else {
 	      // clear temporary content
 	      target.textContent = "";
