@@ -8,7 +8,7 @@ const newResponse = document.getElementById('newResponse');
 
 export function addNewEntry() {
   if (newQuestion.value !== '' && newResponse.value !== '') {
-    const newEntry = {question: newQuestion.value, response: newResponse.value}
+    const newEntry = {site: newQuestion.value, psw: newResponse.value}
     const pack = JSON.stringify(newEntry);
     const http = new XMLHttpRequest();
     const url = '/addNew';
@@ -25,7 +25,7 @@ export function addNewEntry() {
   }
 }
 
-// this will be copy to clipboard mechanism:
+// this is copy to clipboard mechanism:
 // from my very early work, that i copied from somewhere from the internet...
 	export function copyToClipboardMsg(elem, msgElem) {  // copy message
     //console.log('got: ', elem, msgElem);
@@ -34,7 +34,7 @@ export function addNewEntry() {
 	    if (!succeed) {
 	      msg = "Copy not supported or blocked.  Press Ctrl+c to copy."
 	    } else {
-	      msg = "Kopioitu leikepöydälle. CONTROL+V voit liimata chattiin. Huom! kaikki vastaukset eivät käy suoraan vastauksiksi asiakkaille, joten lue ja muokkaa niitä aina!"
+	      msg = "Kopioitu leikepöydälle. CONTROL+V voit liimata."
 	    }
 	    if (typeof msgElem === "string") {
 	      msgElem = document.getElementById('infoScreen');
