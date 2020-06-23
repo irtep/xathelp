@@ -77,6 +77,18 @@ input[type=button]:hover {
   background: white;
   transition: 1s;
 }
+.hastes {
+  border: 2px solid black;
+  background-color: crimson;
+  color: black;
+}
+.hastes:hover {
+  border: 2px solid crimson;
+  background-color: red;
+  color: blue;
+  font-weight: bold;
+  cursor: pointer;
+}
 #passAsker {
   font-family: 'Metal Mania', cursive;
   font-size: 200%;
