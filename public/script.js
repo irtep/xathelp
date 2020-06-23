@@ -1,4 +1,3 @@
-"use strict";
 import { addNewEntry, copyToClipboardMsg } from './functions.js';
 const allDivs = document.getElementById('container');
 const passInput = document.getElementById('passInput');
@@ -8,8 +7,15 @@ const downLeft = document.getElementById('downLeft');
 const downRight = document.getElementById('downRight');
 const checkingPass = document.getElementById('passInput').addEventListener("change", checkPass);
 const sendNewEntry = document.getElementById('sendNew').addEventListener('click', addNewEntry);
+const haste1Listen = document.getElementById('haste1').addEventListener('click', copyHaste);
 let allData = null;
 
+function copyHaste(elem) {
+  const targetDiv = document.getElementById(elem.target.id);
+  // copy to clipboard
+  copyToClipboardMsg(targetDiv, "msg");
+  window.scrollTo(0, 0);
+}
 // this shows data of the clicked information
 function showData(clickedElement) {
   // find the data:
@@ -56,6 +62,11 @@ function checkPass(pass) {
             for (var i = 0; i < elements.length; i++) {
               elements[i].addEventListener('click', showData, false);
             }
+            // haste buttons... maybe temporary "dumb" solution, but gotta do more dynamic someday...
+            const haste1Listen = document.getElementById('haste1').addEventListener('click', copyHaste);
+            const haste2Listen = document.getElementById('haste2').addEventListener('click', copyHaste);
+            const haste3Listen = document.getElementById('haste3').addEventListener('click', copyHaste);
+            const haste4Listen = document.getElementById('haste4').addEventListener('click', copyHaste);
           });
         }
       }
@@ -64,9 +75,20 @@ function checkPass(pass) {
   } else {
     infoScreen.innerHTML = 'wrong password!';
   }
-
 }
 window.onload = (()=> {
   const allDivs = document.getElementById('container');
   allDivs.classList.add('invis');
+
+  // even listeners for hastes
+  /*
+  const allHastes = document.getElementsByClassName('hastes')
+  console.log('all hastes', allHastes);
+  for (let i = 0; i < allHastes.length; i++) {
+    allHastes[i].addEventListener('click', copyHaste);
+  }
+  */
+  //allHastes.forEach( (aH, idx) => {
+  //  aH.addEventListener('click', copyHaste);
+  //});
 });

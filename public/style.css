@@ -13,7 +13,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-color: DarkTurquoise;
-  background-image: linear-gradient(black, navy, blue);
+  background-image: linear-gradient(navy, blue, dodgerBlue);
 }
 #container {
   /*
@@ -22,7 +22,7 @@ body {
   display: grid;
   grid-template-columns: 25% 75%;
   grid-template-rows: 1% 1fr 1fr;
-  grid-template-areas: 
+  grid-template-areas:
     'upLeftx upRightx'
     'downLeftx downRightx'
     'theFoot theFoot';
@@ -49,7 +49,7 @@ body {
 .otsikko {
   font-weight: bold;
 }
-input[type=button] { 
+input[type=button] {
   font-family: 'Audiowide', cursive;
   padding: 10px;
   margin: 10px;
@@ -76,6 +76,18 @@ input[type=button]:hover {
   color: black;
   background: white;
   transition: 1s;
+}
+.hastes {
+  border: 2px solid black;
+  background-color: crimson;
+  color: black;
+}
+.hastes:hover {
+  border: 2px solid crimson;
+  background-color: red;
+  color: blue;
+  font-weight: bold;
+  cursor: pointer;
 }
 #passAsker {
   font-family: 'Metal Mania', cursive;
