@@ -9,10 +9,19 @@ const newResponse = document.getElementById('newResponse');
 
 export function addNewEntry() {
   if (newQuestion.value !== '' && newResponse.value !== '') {
+    firebase.auth().signInAnonymously().catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log('logging: ', errorCode, errorMessage);
+    // ...
+    });
     const newEntry = {question: newQuestion.value, response: newResponse.value}
-    db.collection("xathelpFiles").doc().set({
-      question: newQuestion.value,
-      response: newResponse.value
+    firebase.auth().onAuthStateChanged(function(user) {
+      db.collection("xathelpFiles").doc().set({
+        question: newQuestion.value,
+        response: newResponse.value
+      });
     });
     newQuestion.value = '';
     newResponse.value = '';
@@ -127,14 +136,23 @@ export function copyToClipboardMsg(elem, msgElem) {  // copy message
 export function showData(clickedElement) {
   // find the data:
   //console.log('trying to find from allData, with ids', allData);
-  allData.forEach( (dataEntry, idx) => {
-    //console.log('datas: ', dataEntry.id);
-    if (dataEntry.id === clickedElement.target.id) {
-      // add data
-      downRight.innerHTML = allData[idx].response;
-      // copy to clipboard
-      copyToClipboardMsg(downRight, "msg");
-      window.scrollTo(0, 0);
-    }
+  firebase.auth().signInAnonymously().catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  console.log('logging: ', errorCode, errorMessage);
+  // ...
+  });
+  firebase.auth().onAuthStateChanged(function(user) {
+    allData.forEach( (dataEntry, idx) => {
+      //console.log('datas: ', dataEntry.id);
+      if (dataEntry.id === clickedElement.target.id) {
+        // add data
+        downRight.innerHTML = allData[idx].response;
+        // copy to clipboard
+        copyToClipboardMsg(downRight, "msg");
+        window.scrollTo(0, 0);
+      }
+    });
   });
 }
