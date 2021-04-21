@@ -1,3 +1,5 @@
+import { psws } from '/config.js';
+import { copyHaste, allData, db } from '/script.js';
 const allDivs = document.getElementById('container');
 const passInput = document.getElementById('passInput');
 const passAsker = document.getElementById('passAsker');
@@ -7,12 +9,34 @@ const newResponse = document.getElementById('newResponse');
 
 export function addNewEntry() {
   if (newQuestion.value !== '' && newResponse.value !== '') {
+    firebase.auth().signInAnonymously().catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log('logging: ', errorCode, errorMessage);
+    // ...
+    });
+    const newEntry = {question: newQuestion.value, response: newResponse.value}
+    firebase.auth().onAuthStateChanged(function(user) {
+      db.collection("xathelpFiles").doc().set({
+        question: newQuestion.value,
+        response: newResponse.value
+      });
+    });
+    newQuestion.value = '';
+    newResponse.value = '';
+    infoScreen.innerHTML = 'uusi tieto tallennettu. virkistä selain niin se näkyy listassa.';
+    window.scrollTo(0, 0);
+    setTimeout(() => {
+      infoScreen.innerHTML = "";
+    }, 9000);
+    /*
     const newEntry = {question: newQuestion.value, response: newResponse.value}
     const pack = JSON.stringify(newEntry);
     const http = new XMLHttpRequest();
     const url = '/addNew';
     let params = 'MSG=' + pack;
-    
+
     http.open('POST', url, true);
     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     http.onreadystatechange = () => {
@@ -21,28 +45,42 @@ export function addNewEntry() {
     http.send(params);
     newQuestion.value = '';
     newResponse.value = '';
+    */
   }
 }
-
+export function checkPass(val) {
+  // password ok.
+  if (val.target.value === psws) {
+    // correct pw
+    infoScreen.innerHTML = '';
+    passAsker.classList.add('invis');
+    allDivs.classList.remove('invis');
+  };
+  // haste buttons... maybe temporary "dumb" solution, but gotta do more dynamic someday...
+  const haste1Listen = document.getElementById('haste1').addEventListener('click', copyHaste);
+  const haste2Listen = document.getElementById('haste2').addEventListener('click', copyHaste);
+  const haste3Listen = document.getElementById('haste3').addEventListener('click', copyHaste);
+  const haste4Listen = document.getElementById('haste4').addEventListener('click', copyHaste);
+}
 // this will be copy to clipboard mechanism:
 // from my very early work, that i copied from somewhere from the internet...
-	export function copyToClipboardMsg(elem, msgElem) {  // copy message
-    //console.log('got: ', elem, msgElem);
-		var succeed = copyToClipboard(elem);
-	  var msg = null;
-	    if (!succeed) {
-	      msg = "Copy not supported or blocked.  Press Ctrl+c to copy."
-	    } else {
-	      msg = "Kopioitu leikepöydälle. CONTROL+V voit liimata chattiin. Huom! kaikki vastaukset eivät käy suoraan vastauksiksi asiakkaille, joten lue ja muokkaa niitä aina!"
-	    }
-	    if (typeof msgElem === "string") {
-	      msgElem = document.getElementById('infoScreen');
-	    }
+export function copyToClipboardMsg(elem, msgElem) {  // copy message
+  //console.log('got: ', elem, msgElem);
+	var succeed = copyToClipboard(elem);
+	var msg = null;
+	  if (!succeed) {
+	    msg = "Copy not supported or blocked.  Press Ctrl+c to copy."
+	  } else {
+	     msg = "Kopioitu leikepöydälle. CONTROL+V voit liimata chattiin. Huom! kaikki vastaukset eivät käy suoraan vastauksiksi asiakkaille, joten lue ja muokkaa niitä aina!"
+	  }
+	  if (typeof msgElem === "string") {
+	    msgElem = document.getElementById('infoScreen');
+	  }
 	  msgElem.innerHTML = msg;
 	  setTimeout(() => {
 	    msgElem.innerHTML = "";
 	  }, 9000);
-	}  // end of copy message
+}  // end of copy message
 	function copyToClipboard(elem) {  // copy mechanism
 		// create hidden text element, if it doesn't already exist
     //console.log('got 2: ', elem);
@@ -75,7 +113,7 @@ export function addNewEntry() {
 	    var succeed;
 	    try {
 	    	succeed = document.execCommand("copy");
-	    } 
+	    }
 	    catch(e) {
 	      succeed = false;
 	    }
@@ -86,10 +124,35 @@ export function addNewEntry() {
 	    if (isInput) {
 	      // restore prior selectio
 	      elem.setSelectionRange(origSelectionStart, origSelectionEnd);
-	    } 
+	    }
 	    else {
 	      // clear temporary content
 	      target.textContent = "";
 	    }
 	    return succeed;
 	} // end of copy mechanism
+
+// this shows data of the clicked information
+export function showData(clickedElement) {
+  // find the data:
+  //console.log('trying to find from allData, with ids', allData);
+  firebase.auth().signInAnonymously().catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  console.log('logging: ', errorCode, errorMessage);
+  // ...
+  });
+  firebase.auth().onAuthStateChanged(function(user) {
+    allData.forEach( (dataEntry, idx) => {
+      //console.log('datas: ', dataEntry.id);
+      if (dataEntry.id === clickedElement.target.id) {
+        // add data
+        downRight.innerHTML = allData[idx].response;
+        // copy to clipboard
+        copyToClipboardMsg(downRight, "msg");
+        window.scrollTo(0, 0);
+      }
+    });
+  });
+}
