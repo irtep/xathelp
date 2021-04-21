@@ -1,16 +1,16 @@
 /*
-
-salasanan takana.. 
+...
+salasanan takana..
 // glitch voisi toimia, kun siinä pääsy backendiin kätevästi ja saa salattua stringejä...
 <hae otsik..>   <hae vaustauksista> // etsii vastauksista...
 otsikko1	<vastaus><copypainike>
-otsikko2	syötä uusi:	
+otsikko2	syötä uusi:
 otsikko3	<otsikko><vastaus>
-// 
+//
 onload:
 käy hakee datan databasesta.. mlabista vaikka..
 käy läpi otsikot ja laita ne onClickin ja br:n kanssa tai <ul>
-esim: 
+esim:
 const allData ? [
   {question: `Miksi poistunut ilmoitus löytyy vielä Googlesta`,
    response: `kiitos yhteydenotostasi. Asuntoilmoitukset Oikotie.fi -sivustolla ovat julkisia ilmoituksen aukioloajan ajan ja ilmoitukset ovat Googlen löydettävissä ja indeksoitavissa, mutta heti kun ilmoitus suljetaan, se poistetaan Googlen hakutuloksista. Google kuitenkin säilyttää vanhat ilmoitukset määrittelemättömän ajan osana hakutuloksiaan, johon Oikotie.fi ei pysty vaikuttamaan.
